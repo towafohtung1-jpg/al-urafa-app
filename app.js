@@ -35,24 +35,30 @@ function getLiveRamadanDay() {
     return liveDay > 0 ? liveDay : 0;
 }
 
-function updateUI(index) {
+function updateUI(index, isTest = false) {
+    // 1. Get the data for the index (0 for Day 1)
     const data = ramadanData[index];
-    
-    // If it's before Ramadan, show the 'Coming Soon' state
-    if (!data) {
+
+    // 2. Logic: If it's NOT a test AND it's before Ramadan, show "Coming Soon"
+    const liveDay = getLiveRamadanDay();
+    if (!isTest && liveDay <= 0) {
         dayDisplay.innerText = "AL-URAFA";
         titleDisplay.innerText = `Salam, ${userName}!`; 
         textDisplay.innerText = "The first wisdom will reveal itself when the moon is sighted. Prepare your heart!";
         sourceDisplay.innerText = "- Ramadan is Near";
-        return; // <--- MAKE SURE THIS 'return' IS HERE
+        return;
     }
-    
-    // This part only runs if 'data' actually exists
-    dayDisplay.innerText = `RAMADAN DAY ${data.day}`;
-    titleDisplay.innerText = data.title;
-    textDisplay.innerText = data.text;
-    sourceDisplay.innerText = `- ${data.source}`;
+
+    // 3. Otherwise, show the actual Ramadan content
+    if (data) {
+        dayDisplay.innerText = `RAMADAN DAY ${data.day}`;
+        titleDisplay.innerText = data.title;
+        textDisplay.innerText = data.text;
+        sourceDisplay.innerText = `- ${data.source}`;
+    }
 }
+
+   
 
 // 5. BUTTON EVENTS
 nextBtn.addEventListener('click', () => {
@@ -114,11 +120,7 @@ document.getElementById('login-btn').addEventListener('click', () => {
 
 // Secret Developer "Test Mode"
 document.getElementById('secret-test-btn').addEventListener('click', () => {
-    // This forces the index to 0 (Day 1) regardless of the actual date
-    currentDayIndex = 0; 
-    updateUI(currentDayIndex);
-    
-    // Feedback so you know it worked
-    console.log("Al-Urafa: Day 1 Test Mode Active");
-    alert("Test Mode: Displaying Day 1 Content");
+    // We pass 'true' to tell the function "this is a test, ignore the real date"
+    updateUI(0, true); 
+    alert("Test Mode: Showing Day 1 content!");
 });
