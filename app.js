@@ -3,18 +3,18 @@ import ramadanData from './content.js';
 
 // 1. REGISTER SERVICE WORKER
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
+    navigator.serviceWorker.register('sw.js');
 }
 
 // 2. CONFIGURATION
 const EXPECTED_START_DATE = new Date('2026-02-18'); 
 const MOON_OFFSET = 0; 
-// ... the rest of your app.js logic continues here
 
 let currentDayIndex = 0;
 let userName = "";
+let isTestMode = false;
 
-// 3. ELEMENTS (All must be listed here)
+// 3. ELEMENTS
 const dayDisplay = document.getElementById('day-title');
 const titleDisplay = document.getElementById('quote-title');
 const textDisplay = document.getElementById('daily-text');
@@ -27,8 +27,6 @@ const helpModal = document.getElementById('help-modal');
 const closeHelp = document.getElementById('close-help');
 
 // 4. LOGIC FUNCTIONS
-let isTestMode = false; // New variable to track if we are testing
-
 function getLiveRamadanDay() {
     const today = new Date();
     const diffInTime = today.getTime() - EXPECTED_START_DATE.getTime();
@@ -41,7 +39,6 @@ function updateUI(index) {
     const data = ramadanData[index];
     const liveDay = getLiveRamadanDay();
 
-    // If not in test mode and Ramadan hasn't started, show Coming Soon
     if (!isTestMode && liveDay <= 0) {
         dayDisplay.innerText = "AL-URAFA";
         titleDisplay.innerText = `Salam, ${userName}!`; 
@@ -61,7 +58,6 @@ function updateUI(index) {
 // 5. BUTTON EVENTS
 nextBtn.addEventListener('click', () => {
     const liveDay = getLiveRamadanDay();
-    // In Test Mode, we bypass the liveDay check
     if (isTestMode || (currentDayIndex + 1 < liveDay && currentDayIndex < ramadanData.length - 1)) {
         currentDayIndex++;
         updateUI(currentDayIndex);
@@ -77,12 +73,46 @@ prevBtn.addEventListener('click', () => {
     }
 });
 
-// 6. INITIALIZATION & LOGIN (Keep your existing Section 6 code here...)
+helpBtn.addEventListener('click', () => helpModal.classList.remove('hidden'));
+closeHelp.addEventListener('click', () => helpModal.classList.add('hidden'));
 
-// 7. SECRET DEVELOPER TEST MODE
-document.getElementById('secret-test-btn').addEventListener('click', () => {
-    isTestMode = true; // Turn on "God Mode"
-    currentDayIndex = 0; 
-    updateUI(currentDayIndex); 
-    alert("Developer Mode Active: You can now browse all days!");
+// 6. LOGIN & INITIALIZATION
+window.addEventListener('load', () => {
+    const savedName = localStorage.getItem('alUrafaUserName');
+    if (savedName) {
+        userName = savedName;
+        loginOverlay.classList.add('hidden');
+        const liveDay = getLiveRamadanDay();
+        currentDayIndex = liveDay > 0 ? liveDay - 1 : 0;
+        updateUI(currentDayIndex);
+    }
 });
+
+// FIXED: Changed 'ddocument' to 'document' and added the missing logic
+document.getElementById('login-btn').addEventListener('click', () => {
+    console.log("Login button clicked!"); 
+    const input = document.getElementById('user-name-input');
+    const nameValue = input.value.trim(); // This line was missing
+
+    if (nameValue !== "") {
+        userName = nameValue;
+        localStorage.setItem('alUrafaUserName', nameValue);
+        loginOverlay.classList.add('hidden'); 
+        helpModal.classList.remove('hidden'); 
+        const liveDay = getLiveRamadanDay();
+        currentDayIndex = liveDay > 0 ? liveDay - 1 : 0;
+        updateUI(currentDayIndex);
+    } else {
+        alert("Please enter a name to proceed!");
+    }
+});
+// 7. SECRET DEVELOPER TEST MODE
+const secretBtn = document.getElementById('secret-test-btn');
+if (secretBtn) {
+    secretBtn.addEventListener('click', () => {
+        isTestMode = true; 
+        currentDayIndex = 0; 
+        updateUI(currentDayIndex); 
+        alert("Developer Mode Active: You can now browse all days!");
+    });
+}

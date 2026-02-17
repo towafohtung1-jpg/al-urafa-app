@@ -1,7 +1,8 @@
 {
   "name": "Al-Urafa Ramadan",
   "short_name": "Al-Urafa",
-  "start_url": "index.html",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#022c22",
   "theme_color": "#d97706",
