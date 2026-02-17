@@ -111,3 +111,14 @@ document.getElementById('login-btn').addEventListener('click', () => {
         alert("Please enter a name to proceed!");
     }
 });
+
+// Secret Developer "Test Mode"
+document.getElementById('secret-test-btn').addEventListener('click', () => {
+    // This forces the index to 0 (Day 1) regardless of the actual date
+    currentDayIndex = 0; 
+    updateUI(currentDayIndex);
+    
+    // Feedback so you know it worked
+    console.log("Al-Urafa: Day 1 Test Mode Active");
+    alert("Test Mode: Displaying Day 1 Content");
+});
