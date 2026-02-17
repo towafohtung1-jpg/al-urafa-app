@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadan Companion</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="app.js"></script>
+</head>
+<body>
+    <button id="help-btn" class="help-fab">?</button>
+
+<div id="help-modal" class="modal-overlay hidden">
+    <div class="card modal-card">
+        <h3>Install Al-Urafa</h3>
+        
+        <div class="modal-body">
+            <p class="modal-intro">Follow these steps to add this to your home screen:</p>
+            
+            <div class="install-steps">
+                <div class="platform">
+                    <h4>iPhone (Safari)</h4>
+                    <ol>
+                        <li>Tap the <strong>Share</strong> button ( <span class="ios-share-icon">    
+                            </span> ) in the bottom toolbar.</li>            
+                        <li>Select <strong>"Add to Home Screen"</strong>.</li>
+                        <li>Tap <strong>Add</strong>.</li>
+                    </ol>
+                </div>
+
+                <div class="platform">
+                    <h4>Android (Chrome)</h4>
+                    <ol>
+                        <li>Tap <strong>Menu</strong> (three dots ⋮).</li>
+                        <li>Select <strong>"Install App"</strong>.</li>
+                        <li>Confirm the installation.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <button id="close-help">I'm Ready!</button>
+    </div>
+</div>
+    <div id="login-overlay" class="login-screen">
+    <div class="card login-card">
+        <h2>Ahlan wa Sahlan</h2>
+        <p>Please enter your name to begin your journey.</p>
+        <input type="text" id="user-name-input" placeholder="Your Name...">
+        <button id="login-btn">Enter App</button>
+    </div>
+</div>
+    <div class="app-container">
+        <header>
+            <h1 id="day-title">Ramadan Day 1</h1>
+        </header>
+
+        <main id="content-card" class="card">
+            <div class="card-inner">
+                <h2 id="quote-title">Daily Motivation</h2>
+                <p id="daily-text">Loading your spiritual fuel...</p>
+                <small id="source">- The Quran/Hadith</small>
+            </div>
+        </main>
+
+        <nav class="controls">
+            <button id="prev-btn">Previous</button>
+            <button id="next-btn">Next Day</button>
+        </nav>
+    </div>
+
+</body>
+</html>
+

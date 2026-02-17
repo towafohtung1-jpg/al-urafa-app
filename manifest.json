@@ -1,0 +1,15 @@
+{
+  "name": "Al-Urafa Ramadan",
+  "short_name": "Al-Urafa",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#022c22",
+  "theme_color": "#d97706",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2635/2635441.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
