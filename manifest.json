@@ -7,9 +7,10 @@
   "theme_color": "#d97706",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/2319/2319348.png",
+      "src": "https://img.icons8.com/ios-filled/512/d97706/crescent-moon.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
